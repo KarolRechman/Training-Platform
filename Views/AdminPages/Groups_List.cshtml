@@ -1,0 +1,130 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Quiz.Models.Training_Group>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *,ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Groups list";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    string modal_Class = "";
+}
+
+<h1>Groups List: </h1>
+<hr id="hr" />
+<p>
+    <a asp-action="Create_Group"><button type="button" class="btn btn-primary btn-lg font-weight-bold" style="font-size:1.1em;">Create New Group</button></a>
+</p>
+
+@if (ViewBag.Msg == "Well done !!")
+{
+    modal_Class = "modal-dialog modal-dialog-centered modal-notify modal-success modal-lg";
+}
+else
+{
+    modal_Class = "modal-dialog modal-dialog-centered modal-notify modal-danger modal-lg";
+}
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="@modal_Class" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-center">
+                <h1 class="modal-title w-100" id="myModalLabel">@ViewBag.Msg</h1>
+            </div>
+            <div class="modal-body">
+                <h2 id="ErrorMsg">@ViewBag.Errors</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info font-weight-bold" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex bd-highlight mb-3 Nav_Filter">
+
+    <div aria-label="Paging" id="nav_Table">
+        @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+    </div>
+    <form method="get" class="form-inline ml-auto p-2 bd-highlight" id="filter">
+        <a asp-action="Groups_List"><i class="fas fa-sync-alt" id="Refresh"></i></a>
+        <input name="filter" id="myInput" class="form-control" placeholder="filter name"
+               value="@Model.RouteValue["Filter"]" />
+        <button type="submit" class="btn btn-info btn-sm font-weight-bold">
+            Search &nbsp;<i class="fa fa-search"></i>
+        </button>
+    </form>
+</div>
+
+<div id="Main_Row">
+    <table class="table table-hover table-sm" id="Presentations_Table" data-pagination="true">
+        <thead>
+            <tr>
+                <th hidden>
+                    @Html.DisplayNameFor(model2 => model2.Id_Group)
+                </th>
+                <th id="SortableHeader" class="Table_Name_Col">
+                    @Html.SortableHeaderFor(model2 => model2.Name)
+                </th>
+                <th>Employees</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item2 in Model)
+            {
+                <tr>
+                    <td hidden>
+                        @Html.DisplayFor(modelItem2 => item2.Id_Group)
+                    </td>
+                    <td class="Table_Name_Col">
+                        @Html.DisplayFor(modelItem2 => item2.Name)
+                    </td>
+                    <td>@Html.DisplayFor(modelItem2 => item2.Users.Count)</td>
+                    <td style="width:48%; text-align:right;">
+                        <a asp-action="Edit_Group" asp-route-id="@item2.Id_Group"><button type="button" class="btn btn-info btn-sm font-weight-bold" id="EditButtons">Edit</button></a>
+                        @*<button type="button" class="btn btn-info btn-sm" id="EditButtons" onclick="getGroupDetailsByID(@item2.Id);">Details</button>*@
+                        <button type="button" class="btn btn-danger btn-sm font-weight-bold" data-toggle="modal" data-target="#myModal" id="EditButtons" onclick="getInfobyID(@item2.Id_Group);">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <nav aria-label="Paging" class="Nav_Filter_Bottom">
+        <vc:pager paging-list="@Model"></vc:pager>
+    </nav>
+</div>
+<!--Modal: modalPush-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger modal-dialog-centered modal-lg">
+        <div class="modal-content text-center">
+            <div class="modal-header d-flex justify-content-center">
+                <h2 class="modal-title" id="DeleteError">Are you sure you want to delete this group ?</h2>
+            </div>
+            <div class="modal-body">
+                <i class="fas fa-trash fa-4x animated rotateIn mb-4"></i>
+                <dl class="row">
+                    <dt class="col-sm-6" id="ModelName">
+                        @Html.DisplayNameFor(model => model.Name):
+                    </dt>
+                    <dd class="col-sm-6">
+                        <span id="Name"></span>
+                    </dd>
+                    <dt class="col-sm-6">
+                        Employees:
+                    </dt>
+                    <dd class="col-sm-6">
+                        <span id="Employees"></span>
+                    </dd>
+                    @*<dt class="col-sm-6" id="ModelType">
+                        Create Date:
+                    </dt>
+                    <dd class="col-sm-6">
+                        <p id="Create_Date"></p>
+                    </dd>*@
+                </dl>
+            </div>
+            <div class="modal-footer flex-center">
+                <a href="" id="asp"><button type="button" class="btn btn-danger font-weight-bold" id="btnDelete" value="id">Delete</button></a>
+                <button type="button" class="btn btn-outline-success waves-effect font-weight-bold" data-dismiss="modal" onclick="Clear()" id="NoButton">No</button>
+            </div>
+
+        </div>
+    </div>
+</div>

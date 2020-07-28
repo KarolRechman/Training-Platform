@@ -1,0 +1,215 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Quiz.Models.Presentations>
+@using ReflectionIT.Mvc.Paging
+@using Microsoft.AspNetCore.Http;
+@addTagHelper *,ReflectionIT.Mvc.Paging
+
+@{
+    ViewData["Title"] = "Trainings list";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    int id = 0;
+}
+
+<h1>Trainings List </h1>
+<hr id="hr" />
+<p>
+    <a asp-action="Create_Training"><button type="button" class="btn btn-primary btn-lg font-weight-bold" style="font-size:1.1em;">Create New Training</button></a>
+</p>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title w-100" id="myModalLabel">@ViewBag.DeleteError</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 id="ErrorMsg">@ViewBag.DeleteMsg</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary font-weight-bold" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex bd-highlight mb-3 Nav_Filter">
+
+    <div aria-label="Paging" id="nav_Table">
+        @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+    </div>
+    <form method="get" class="form-inline ml-auto p-2 bd-highlight" id="filter">
+        <a asp-action="Index"><i class="fas fa-sync-alt" id="Refresh"></i></a>
+        <input name="filter" id="myInput" class="form-control" placeholder="filter for name and type"
+               value="@Model.RouteValue["Filter"]" />
+        <button type="submit" class="btn btn-info btn-sm font-weight-bold">
+            Search &nbsp;<i class="fa fa-search"></i>
+        </button>
+    </form>
+</div>
+
+<div id="Main_Row">
+    <table class="table table-hover table-sm" id="Presentations_Table" data-pagination="true">
+        <thead>
+            <tr>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                </th>
+                <th id="SortableHeader" class="Table_Name_Col" >
+                    @Html.SortableHeaderFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Question_Count)
+                </th>
+                <th>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                id = item.Id;
+
+                string TogglerId = "toggleTr" + id.ToString();
+                string Author = "Author" + id.ToString();
+                string Type = "Type" + id.ToString();
+                string Create_Date = "Create_Date" + id.ToString();
+                string Modify_Date = "Modify_Date" + id.ToString();
+
+            <tr id="visibleRow">
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td style="width:5%;">
+                    <i class="fas fa-chevron-down Plus_Icon" id="Icon_@item.Id" onclick="getDetailsByID(@item.Id)" style="font-size:1.5em; "></i>
+                </td>
+                <td class="Table_Name_Col" onclick="getDetailsByID(@item.Id)" style="cursor:pointer;">
+                    <span style="font-size:1.3em;"> @Html.DisplayFor(modelItem => item.Name)</span>
+                </td>
+                <td style="width:20%; cursor:pointer;" onclick="getDetailsByID(@item.Id)">
+                    @Html.DisplayFor(modelItem => item.Type_Name)
+                </td>
+                <td style="width:15%; cursor:pointer;" onclick="getDetailsByID(@item.Id)">
+                    @Html.DisplayFor(modelItem => item.Question_Count)
+                </td>
+                <td style="width:40%; text-align:right;">
+                    <a asp-action="Questions_List" asp-route-id="@item.Id"><button type="button" class="btn btn-light-blue btn-sm font-weight-bold" id="EditButtons">Questions</button></a>
+                    <a asp-action="Edit_Training" asp-route-id="@item.Id"><button type="button" class="btn btn-info btn-sm font-weight-bold" id="EditButtons">Edit</button></a>
+
+                    @*<button type="button" class="btn btn-info btn-sm font-weight-bold" id="EditButtons" onclick="getDetailsByID(@item.Id);">Details</button>*@
+                    <button type="button" class="btn btn-danger btn-sm font-weight-bold" data-toggle="modal" data-target="#myModal" id="EditButtons" onclick="getbyID(@item.Id);">Delete</button>
+                </td>
+
+            </tr>
+                <tr id="@TogglerId" class="Toggler">
+                    <td id="Nameajax" class="Table_Name_Col" colspan="5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <dl class="row">
+                                    <dt class="col-4">
+                                        Author:
+                                    </dt>
+                                    <dd class="col-8">
+                                        <span id="@Author"></span>
+                                    </dd>
+                                    <dt class="col-4">
+                                        File format:
+                                    </dt>
+                                    <dd class="col-8">
+                                        <span id="@Type">
+                                        </span>
+                                    </dd>
+                                    <dt class="col-4">
+                                        Create Date:
+                                    </dt>
+                                    <dd class="col-8">
+                                        <span id="@Create_Date">
+                                        </span>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-6 ">
+                                <dl class="row">
+                                    <dt class="col-4">
+                                        Last modification:
+                                    </dt>
+                                    <dd class="col-8">
+                                        <span id="@Modify_Date"></span>
+                                    </dd>
+                                    <dt class="col-4">
+                                        
+                                    </dt>
+                                    <dd class="col-8">
+                                        <span id="">
+                                        </span>
+                                    </dd>
+                                    <dt class="col-4">
+
+                                    </dt>
+                                    @*<dd class="col-8">
+                                        @if (@Context.Session.GetInt32("Id_Mandant") == item.Author_Mandant)
+                                        {
+                                            <p id="" style="text-align:right;">
+                                                <a asp-action="Edit_Training" asp-route-id="@item.Id"><button type="button" class="btn btn-info btn-sm font-weight-bold" id="EditButtons">Edit</button></a>
+                                            </p>
+                                        }
+                                    </dd>*@
+                                </dl>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <nav aria-label="Paging" class="Nav_Filter_Bottom">
+        <vc:pager paging-list="@Model"></vc:pager>
+    </nav>
+</div>
+
+<!--Modal: modalPush-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger modal-dialog-centered modal-lg">
+        <div class="modal-content text-center">
+            <div class="modal-header d-flex justify-content-center">
+                <h2 class="modal-title" id="DeleteError">Are you sure you want to delete this training ?</h2>
+            </div>
+            <div class="modal-body">
+                <i class="fas fa-trash fa-4x animated rotateIn mb-4"></i>
+                <dl class="row">
+                    <dt class="col-sm-6" id="ModelName">
+                        @Html.DisplayNameFor(model => model.Name):
+                    </dt>
+                    <dd class="col-sm-6">
+                        <span id="Name"></span>
+                    </dd>
+                    <dt class="col-sm-6">
+                        Author:
+                    </dt>
+                    <dd class="col-sm-6">
+                        <span id="Author"></span>
+                    </dd>
+                    <dt class="col-sm-6" id="ModelType">
+                        Create Date:
+                    </dt>
+                    <dd class="col-sm-6">
+                        <span id="Create_Date"></span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="modal-footer flex-center">
+                <a href="" id="asp"><button type="button" class="btn btn-danger font-weight-bold" id="btnDelete" value="id">Delete</button></a>
+                <button type="button" class="btn btn-outline-success waves-effect font-weight-bold" data-dismiss="modal" onclick="Clear()" id="NoButton">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+

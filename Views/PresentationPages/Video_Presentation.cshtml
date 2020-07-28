@@ -1,0 +1,28 @@
+﻿@model Quiz.Models.Presentations
+@{
+    ViewData["Title"] = "Video Presentation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+
+<div class="p-2">
+    <h1 style="text-align:center;">@Html.DisplayFor(model => model.Name)</h1>
+    <a asp-controller="UserPages" asp-action="Users_Training_List"><button type="button" class="btn btn-outline-info waves-effect btn-lg">Back to List</button></a>
+</div>
+<div class="embed-responsive embed-responsive-16by9" allowfullscreen id="embedItem">
+    <video class="embed-responsive-item" id="video1" src='@Html.DisplayFor(model => model.src)' noloop allowfullscreen controls controlsList="nodownload"></video>
+    @*<video class="embed-responsive-item" id="video1" src='~Test\\Video\\videoTraining\\videoTraining.mp4' loop allowfullscreen controls controlsList="nodownload"></video>*@
+</div>
+<div class="row">
+    <div class="col-9 mr-auto">
+        <h1 style="text-align:right;">When you're done watching, don't wait and</h1>
+    </div>
+    <div class="col-auto ml-auto p-2">
+        <a asp-action="Test_Page" asp-route-id="@Model.Id"><button type="button" class="btn btn-outline-primary waves-effect btn-lg">Go to Quiz</button></a>
+    </div>
+</div>
+
+
+

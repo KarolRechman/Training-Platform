@@ -1,0 +1,241 @@
+﻿
+@{
+    ViewData["Title"] = "Statistics";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@*
+            <div class="d-flex bd-highlight mb-3">
+
+               <div aria-label="Paging" id="nav_Table">
+                        @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+                    </div>
+        <form method="get" class="form-inline ml-auto p-2 bd-highlight" id="filter">
+            <a asp-action="Analytitsc_Dashboard"><i class="fas fa-sync-alt" id="Refresh"></i></a>
+            <input name="filter" id="myInput" class="form-control" placeholder="filter for name and type"
+                   @*value="@Model.RouteValue["Filter"]" />
+    <button type="submit" class="btn btn-info btn-sm my-0 p font-weight-bold">
+        Search &nbsp;<i class="fa fa-search"></i>
+    </button>
+    </form>
+    </div>*@
+<!--Grid row-->
+@*<div class="row wow fadeIn">
+        <div class="col-md-12 mb-4">
+            <div class="card-header text-center">
+                <h4>Chart</h4>
+                <div id="controls" style="width: 100%; overflow: hidden;">
+                    <div id="data_Range" class="form-inline">
+                        From: &nbsp;<input type="text" id="fromfield" class="form-control" />&nbsp;
+                        To: &nbsp;<input type="text" id="tofield" class="form-control" />
+                    </div>
+                    <div id="chart_Buttons">
+                        <button id="b1m" class="btn btn-primary btn-sm font-weight-bold">1 m</button>
+                        <button id="b3m" class="btn btn-primary btn-sm font-weight-bold">3 m</button>
+                        <button id="b6m" class="btn btn-primary btn-sm font-weight-bold">6 m</button>
+                        <button id="b1y" class="btn btn-primary btn-sm font-weight-bold">1 y</button>
+                        <button id="bytd" class="btn btn-primary btn-sm font-weight-bold">YTD</button>
+                        <button id="bmax" class="btn btn-primary btn-sm font-weight-bold">MAX</button>
+                    </div>
+                </div>
+            </div>
+            <div id="Stock_chartdiv" class="BGC"></div>
+        </div>
+    </div>*@
+<div class="row wow fadeIn">
+    <!--Grid column-->
+    <div class="col-md-12 my-4 px-4">
+        <div class="card-header text-center">
+            <h4>Results chart</h4>
+            <div class="controls_Charts">
+                <div class="form-inline p-2">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label m-auto">Campaigns: </label>
+                            <select id="Camps" class="selectpicker dropup" data-live-search="true" data-size="5" title="Choose one" data-style="btn-link" data-width="99%" required data-dropup-auto="false" data-container="body">
+
+                                @foreach (var camp in Model)
+                                {
+                                    <option value="@camp.Id">
+                                        @camp.Name
+                                    </option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group m-auto" id="Trainings_Select">
+                            <label class="control-label">Trainings: </label>
+                            <select id="Trainings" class="selectpicker dropup" data-live-search="true" data-size="5" title="Choose one" data-style="btn-link" data-width="99%" data-dropup-auto="false" data-container="body">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group m-auto" id="Results_Select">
+                            <label class="control-label m-auto">Results: </label>
+                            <select id="Results" class="selectpicker dropup" data-live-search="true" data-size="5" title="Choose one" data-style="btn-link" data-width="99%" data-dropup-auto="false" data-container="body">
+                                <option value="1">
+                                    Latest (default)
+                                </option>
+                                <option value="2">
+                                    Max
+                                </option>
+                                <option value="3">
+                                    Min
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chartdiv" class="card BGC align-items-center">
+            <div class="align-self-center ">
+                <h2>Choose your options</h2>
+            </div>
+
+        </div>
+    </div>
+    <!--Grid column-->
+    <!--Grid column-->
+    @*
+        <div class="col-md-3 mb-4">
+
+            <!--Card-->
+            <div class="card mb-4">
+
+                <!--Card content-->
+                <div class="card-body">
+
+                    <!-- List group links -->
+                    <div class="list-group list-group-flush">
+                        <a class="list-group-item list-group-item-action waves-effect">
+                            Sales
+                            <span class="badge badge-success badge-pill pull-right">
+                                22%
+                                <i class="fa fa-arrow-up ml-1"></i>
+                            </span>
+                        </a>
+                        <a class="list-group-item list-group-item-action waves-effect">
+                            Traffic
+                            <span class="badge badge-danger badge-pill pull-right">
+                                5%
+                                <i class="fa fa-arrow-down ml-1"></i>
+                            </span>
+                        </a>
+                        <a class="list-group-item list-group-item-action waves-effect">
+                            Orders
+                            <span class="badge badge-primary badge-pill pull-right">14</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action waves-effect">
+                            Issues
+                            <span class="badge badge-primary badge-pill pull-right">123</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action waves-effect">
+                            Messages
+                            <span class="badge badge-primary badge-pill pull-right">8</span>
+                        </a>
+                    </div>
+                    <!-- List group links -->
+
+                </div>
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+    *@
+    <!--Grid column-->
+
+</div>
+<!--Grid row-->
+<!--Grid row-->
+
+<div class="row wow fadeIn">
+
+    <!--Grid column-->
+    <div class="col-md-6 mb-4" id="PieChartContainer">
+
+        <!-- Card header -->
+        <div class="card-header text-center">
+            <h4>All participants</h4>
+            <span class="pr-5" id="Export"></span>
+        </div>
+
+        <!--Card content-->
+        <div id="Pie_chartdiv" class="card BGC">
+        </div>
+
+    </div>
+    <!--Grid column-->
+    <!--Grid column-->
+    @*
+                <div class="col-md-6 mb-4">
+
+                    <!--Card-->
+                    <div class="card">
+
+                        <!--Card content-->
+                        <div class="card-body">
+
+                            <!-- Table  -->
+                            <table class="table table-hover">
+                                <!-- Table head -->
+                                <thead class="blue lighten-4">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Lorem</th>
+                                        <th>Ipsum</th>
+                                        <th>Dolor</th>
+                                    </tr>
+                                </thead>
+                                <!-- Table head -->
+                                <!-- Table body -->
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Cell 1</td>
+                                        <td>Cell 2</td>
+                                        <td>Cell 3</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Cell 4</td>
+                                        <td>Cell 5</td>
+                                        <td>Cell 6</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Cell 7</td>
+                                        <td>Cell 8</td>
+                                        <td>Cell 9</td>
+                                    </tr>
+                                </tbody>
+                                <!-- Table body -->
+                            </table>
+                            <!-- Table  -->
+
+                        </div>
+
+                    </div>
+            <!--/.Card-->
+
+        </div>*@
+    <!--Grid column-->
+
+</div>
+<!--Grid row-->
+<!--Grid row-->
+@*
+    <div class="row wow fadeIn">
+
+        <div class="col-md-12 mb-4">
+
+            <!-- Card header -->
+            <div class="card-header text-center"><h4>Line chart</h4></div>
+            <div id="chartdiv_Hor" class="card BGC"></div>
+        </div>
+
+        <!--/.Card-->
+    </div>
+*@

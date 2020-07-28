@@ -1,0 +1,213 @@
+﻿@model Quiz.Models.Training_Campaign
+
+@{
+    ViewData["Title"] = "Edit Campaign";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Edit Campaign: <strong class="deep-orange-text"><i> @Model.Name</i></strong></h1>
+
+<hr id="hr" />
+<div class="p-2">
+    <a asp-action="Campaigns_List"><button type="button" class="btn btn-outline-info waves-effect btn-lg font-weight-bold">Back to List</button></a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div id="M_Class" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-center">
+                <h1 class="modal-title w-100" id="myModalLabel">@ViewBag.Msg</h1>
+            </div>
+            <div class="modal-body">
+                <h2 id="ErrorMsg">@ViewBag.Errors</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info font-weight-bold" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" id="Main_Row">
+    <div class="col-12 col-md-4">
+        <ul class="list-group" id="legendList_Presentation">
+            <li class="list-group-item" id="legendHeader_Presentation">Instructions:</li>
+            <li class="list-group-item">You can edit name, add or delete trainings.</li>
+
+            <li class="list-group-item">Edit date when campaign will be available.</li>
+            <li class="list-group-item">Edit number of available attempts.</li>
+            <li class="list-group-item">
+                Add or delete groups or individual employees. You can add additional employees in <i class="text-info">Real Time</i> after submiting them on
+                <i class="text-info">Available Employees</i> table
+            </li>
+
+            <li class="list-group-item">Please submit rest of data with <i class="text-info">UPDATE </i> button.</li>
+        </ul>
+    </div>
+    <div class="col-12 col-md-8">
+        <form enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <input asp-for="Id" class="form-control" hidden />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="row align-items-end">
+                <div class="col-6  col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Name <span class="info">(100 Characters possible, please use only letters and numbers)</span></label>
+                        <input asp-for="Name" class="form-control" id="Name_Session" required maxlength="100" pattern="[A-Za-z0-9\s']+" title="use only letters and numbers" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6  col-md-6">
+                    @{
+                        string Range_Value = Model.Start_Date + " - " + Model.End_Date;
+
+                        if (Range_Value == " - ")
+                        {
+                            Range_Value = DateTime.Now.ToString();
+                        }
+                    }
+                    <div class="form-group">
+                        <label asp-for="@Model.Date_Range" class="control-label">Campaign will be available: <span class="info">(from - to)</span></label>
+                        <input asp-for="Date_Range" class="form-control" id="dates" type="text" value="@Range_Value" />
+                        <span asp-validation-for="Date_Range" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <hr id="hr" />
+            <div class="row">
+                <div class="col-6  col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Training_Groups" class="control-label">Groups: </label>
+                        <select asp-for="Training_Groups" id="Gr" class="selectpicker" data-live-search="true" multiple data-selected-text-format="count > 3" data-style="btn-link" data-width="99%">
+
+                            @for (var i = 0; i < Model.Training_Groups.Count; i++)
+                            {
+                                <option value="@Model.Training_Groups[i].Id_Group" selected>
+                                    @Model.Training_Groups[i].Name
+                                </option>
+                            }
+                            @{
+                                var Available_Groups = ViewData["Available_Groups"] as List<Training_Group>;
+                                if (Available_Groups != null)
+                                {
+                                    for (var i = 0; i < Available_Groups.Count; i++)
+                                    {
+                                        <option value="@Available_Groups[i].Id_Group">
+                                            @Available_Groups[i].Name
+                                        </option>
+                                    }
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="Training_Groups" class="text-danger"></span>
+                        <button type="button" id="Assign_Employees" class="btn btn-deep-purple font-weight-bold">additional employees</button>
+                    </div>
+                </div>
+                <div class="col-6  col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Presentations" class="control-label">Trainings: <span class="info">(required)</span></label>
+                        <select asp-for="Presentations" class="selectpicker" id="pres" data-live-search="true" multiple data-selected-text-format="count > 3" data-style="btn-link" data-width="99%" required>
+
+                            @for (var i = 0; i < Model.Presentations.Count; i++)
+                            {
+                                <option value="@Model.Presentations[i].Id" selected>
+                                    @Model.Presentations[i].Name
+                                </option>
+                            }
+                            @{
+                                var Available_Presentations = ViewData["Available_Presentations"] as List<Presentations>;
+                                if (Available_Presentations != null)
+                                {
+                                    for (var i = 0; i < Available_Presentations.Count; i++)
+                                    {
+                                        @if (Available_Presentations[i].Question_Count == 0)
+                                        {
+                                            <option value="@Available_Presentations[i].Id" disabled>
+                                                @Available_Presentations[i].Name
+                                                &nbsp;- disabled, no questions !!
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@Available_Presentations[i].Id">
+                                                @Available_Presentations[i].Name
+                                            </option>
+                                        }
+                                    }
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="Presentations" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <hr id="hr" />
+            <div class="row" style="min-height:150px;">
+                <div class="col-6  col-md-6">
+                    <div id="requirements_Camp" class="justify-content-lg-start">
+                        <div><h4><i class="text-info font-weight-bold ml-2">Something is still missing:</i></h4></div>
+                        <button type="button" id="requirements_Camp_Button" class="btn btn-warning waves-effect float-left text-dark font-weight-bold">set pass requirements</button>
+                    </div>
+                </div>
+                <div class="col-6  col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Attempts" class="control-label">Attempts: <span class="info">(required min 1)</span></label>
+                        <input asp-for="Attempts" class="form-control" id="Attempts" required maxlength="1000" min="1" pattern="[1-999]+" title="numbers like 1 or bigger" value="@Model.Attempts" />
+
+                        <span asp-validation-for="Presentations" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" value="Create" class="btn btn-primary btn-lg float-sm-right font-weight-bold" id="Submit_Session">Update</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr id="hr" />
+    <div class="col-12 col-md-12">
+        <hr id="hr" />
+        <h3 style="text-align:center;">All employees assigned to this event:</h3>
+        <div id="Assigned_Employees_Partial">
+            @await Html.PartialAsync("Assigned_Employees_Partial")
+        </div>
+    </div>
+</div>
+
+<!-- Modal pass requirements-->
+<div class="modal fade" id="requirements_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-warning modal-dialog-centered modal-lg">
+        <div class="modal-content text-center">
+            <div class="modal-header d-flex justify-content-center">
+                <h2 class="modal-title" id="Modal_Title"></h2>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div id="requirements_Modal_Pages">
+                    </div>
+                </div>
+                <div class="modal-footer flex-center">
+                    <button type="button" class="btn btn-success waves-effect font-weight-bold" id="requirements_Submit">Submit</button>
+                    <button type="button" class="btn btn-outline-danger waves-effect font-weight-bold" data-dismiss="modal">cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal users table-->
+<div class="modal fade bd-example-modal-xl" id="Assign_Table" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-notify modal-primary modal-xl">
+        <div class="modal-content text-center">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center">
+                <h2 class="modal-title" style="color:white;">Available employees</h2>
+            </div>
+            @await Html.PartialAsync("_Partial")
+            <div class="modal-footer flex-center">
+                <a id="Additional_Employees"><button type="submit" class="btn btn-success font-weight-bold" value="Submit" data-dismiss="modal">Submit</button></a>
+                <button type="button" id="dismiss" class="btn btn-outline-danger waves-effect font-weight-bold" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

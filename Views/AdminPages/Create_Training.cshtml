@@ -1,0 +1,101 @@
+﻿@model Quiz.Models.Presentations
+
+@{
+    ViewData["Title"] = "Create training";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    int len = 0;
+    string space = "-";
+    string modal_Class = "";
+}
+
+<h1>Create New Training</h1>
+<hr id="hr" />
+<div class="p-2">
+    <a asp-action="Index"><button type="button" class="btn btn-outline-info waves-effect btn-lg font-weight-bold">Back to List</button></a>
+</div>
+@if (ViewBag.Msg == "Well done !!")
+{
+    modal_Class = "modal-dialog modal-dialog-centered modal-notify modal-success modal-lg";
+}
+else
+{
+    modal_Class = "modal-dialog modal-dialog-centered modal-notify modal-danger modal-lg";
+}
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="@modal_Class" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-center">
+                <h1 class="modal-title w-100" id="myModalLabel">@ViewBag.Msg</h1>
+            </div>
+            <div class="modal-body">
+                <h2 id="ErrorMsg">@ViewBag.Errors</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info font-weight-bold" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="Main_Row">
+    <div class="col-12 col-md-4">
+        <ul class="list-group" id="legendList_Presentation">
+            <li class="list-group-item" id="legendHeader_Presentation">Legend, Manual, Instructions:</li>
+            <li class="list-group-item">Write name of your training,</li>
+            <li class="list-group-item">Choose type of your training,</li>
+            <li class="list-group-item">Upload files, You can select many pictures at once. Only one video or PDF file, the files must be the same kind.</li>
+            <li class="list-group-item">Choose date when training will be available. Click on a date, which should be the beginning then click on a date that's the end</li>
+            <li class="list-group-item">Assign employees for this event.</li>
+        </ul>
+    </div>
+    <div class="col-12 col-md-6">
+        <form asp-action="Create_Training" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Name <span class="info">(100 Characters possible, please use only letters and numbers)</span></label>
+                <input asp-for="Name" class="form-control" id="Name1" required maxlength="100" pattern="[A-Za-z0-9\s']+" title="use only letters and numbers" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <hr id="hr" />
+            <div class="form-group">
+                <label asp-for="Type" class="control-label">Type <span class="info">(required)</span></label>
+                <select asp-for="Type" id="Select_Type" class="form-control" required>
+                    <option value="" selected="selected"></option>
+
+                    @foreach (var item in Model.Format_Types)
+                    {
+                        len = len + item.Name.Length;
+
+                        <option value="@item.Format">
+                            @item.Name &nbsp;&nbsp; @for (int i = 0; i < len; i++)
+                            {@space;
+                        }->&nbsp;(Required format is: &nbsp; "@item.Format" )
+                    </option>
+                }
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <hr id="hr" />
+            <label asp-for="FormFile" class="control-label">Files <span class="info">(required)</span></label>
+            <div class="custom-file">
+                <input asp-for="FormFile" class="custom-file-input" id="customFileLang" lang="en-us" multiple required />
+                <label class="custom-file-label" id="FileLabel" for="customFileLang">Choose files</label>
+            </div>
+            <p></p>
+            <div class="d-flex bottom" style="width:100%;" id="createButton">
+                @*<div class="p-2">
+                    <button type="button" id="Assign_Employees" class="btn btn-deep-purple">assign employees</button>
+                </div>*@
+                <div class="form-group ml-auto p-2">
+                    <input type="submit" value="Create" class="btn btn-primary btn-lg font-weight-bold" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

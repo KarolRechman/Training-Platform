@@ -1,0 +1,29 @@
+﻿
+<table id="Assigned_Users" class="table table-striped table-hover table-sm myTable" cellspacing="0" width="100%" data-order='[[ 2, "asc" ]]'>
+    <thead>
+        <tr>
+            <th class="th-sm">
+                Personal Number
+            </th>
+            <th class="th-sm">
+                First Name
+            </th>
+            <th class="th-sm">
+                Last Name
+            </th>
+            @if (ViewData["Title"].ToString() == "Edit Campaign")
+            {
+                <th class="th-sm" id="last_Column" style="width:400px">
+                    <span>Groups<i class="text-info"> (Linked)</i>, delete additional employees</span>
+                </th>
+            }
+            else
+            {
+                <th class="th-sm">
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>

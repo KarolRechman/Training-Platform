@@ -1,0 +1,106 @@
+﻿@model List<Quiz.Models.Questions>
+
+@{
+    ViewData["Title"] = "Test_Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int number = 0;
+    List<int> listOfNumbers = new List<int>();
+    string Modal_Class = "";
+    string Error = @ViewBag.Error;
+}
+
+<h1>Test for training: <strong class="deep-orange-text"><i> @ViewBag.Presentation_Name</i></strong></h1>
+<a asp-action="Trainings_List" asp-controller="UserPages"><button type="button" id="White_Button" class="btn btn-outline-white waves-effect btn-lg font-weight-bold">Back to List</button></a>
+<!-- Modal -->
+<div class="modal fade points" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    @if (ViewBag.Points != null)
+    {
+        if (Error != null)
+        {
+            if (Error.Contains("<br>"))
+            {
+                Modal_Class = "modal-dialog modal-notify modal-warning modal-dialog-centered modal-lg";
+            }
+            else
+            {
+                Modal_Class = "modal-dialog modal-notify modal-info modal-dialog-centered modal-lg";
+
+            }
+        }
+    }
+    else
+    {
+        Modal_Class = "modal-dialog modal-notify modal-danger modal-dialog-centered modal-lg";
+    }
+    <div class="@Modal_Class" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-header d-flex justify-content-center">
+                <h1 class="modal-title w-100" id="myModalLabel">@Html.Raw(@Error)</h1>
+            </div>
+            <div class="modal-body">
+                <h2 id="ErrorMsg">@ViewBag.Valid</h2>
+                <h2 id="ErrorMsg">@ViewBag.Points</h2>
+            </div>
+            <div class="modal-footer flex-center">
+                <button type="button" class="btn btn-outline-info font-weight-bold" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    //var Id_Campaign = ViewBag.Id_Campaign;
+    //Id_Campaign = Convert.ToInt32(Id_Campaign);
+}
+<form asp-action="Submit_Answers" asp-route-id="@ViewBag.Id_Campaign" id="Answers">
+    @Html.AntiForgeryToken()
+    <div class="slideshow-container">
+        @for (var j = 0; j < Model.Count; j++)
+        {
+            string checkbox_group_required = "checkbox-group " + number.ToString();
+
+            <div class="mySlides">
+                <h1 class="Question_TxT"><i>@Model[j].Question</i></h1>
+                <input asp-for="@Model[j].Id" type="text" hidden />
+                <input asp-for="@Model[j].Question" type="text" hidden />
+                <input asp-for="@Model[j].Id_Presentation" type="text" hidden />
+
+                <div class="@checkbox_group_required">
+                    @for (int i = 0; i < Model[j].Answers.Count; i++)
+                    {
+                        Model[j].Answers[i].Correct_Answer = false;
+
+                        string check_Id = j.ToString() + "check_Id" + i.ToString();
+
+                        <input asp-for="@Model[j].Answers[i].Id_Answer" type="text" hidden />
+                        <input asp-for="@Model[j].Answers[i].Answer" type="text" hidden />
+                        <div class="User_Answer" onclick="check(@j,@i);"> <label class="containerCheck"> <input asp-for="@Model[j].Answers[i].Correct_Answer" type="checkbox" /><span class="checkmark"></span></label> @Model[j].Answers[i].Answer</div>
+                    }
+                </div>
+            </div>
+
+            number += 1;
+            listOfNumbers.Add(number);
+        }
+
+        <a class="btn btn-blue-grey font-weight-bold" id="Prev_Button" onclick="plusSlides(-1)" style="margin-left:1.7em; visibility:hidden;">&#10094; Previous</a>
+        <a class="btn btn-blue-grey font-weight-bold" id="Next_Button" style="float:right; margin-right:1.7em;" onclick="plusSlides(1)">Next &#10095;</a>
+        <div class="dot-container">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example" style="display: inline; flex-wrap: wrap;">
+                @foreach (var num in listOfNumbers)
+                {
+                    <span class="dot btn btn-warning btn-sm" onclick="currentSlide(@num)">@num</span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="d-flex bottom justify-content-between" style="width:100%;">
+        <div class="Timer p-2 "></div>
+        <div class="p-2 float-right text-right">
+            <input id="time" asp-for="@Model[0].Time" type="text" hidden>
+            <p id="TxT_Answers_Info"> Answer to all questions then...</p>
+        </div>
+        <div class="form-group ml-auto p-2">
+            <input type="submit" value="Submit answers" id="Sub_Ans" disabled class="btn btn-elegant btn-lg font-weight-bold" />
+        </div>
+    </div>
+</form>

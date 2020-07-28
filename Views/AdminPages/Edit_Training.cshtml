@@ -1,0 +1,286 @@
+﻿@model Quiz.Models.Presentations
+
+@{
+    ViewData["Title"] = "Edit Training";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    int len = 0;
+    string space = "-";
+    int id = 0;
+    //int last_File = Model.Files.Count - 1;
+    string m_class = "";
+}
+
+<h1>Edit Training: <strong class="deep-orange-text"><i>@Model.Name</i></strong></h1>
+
+
+<hr id="hr" />
+<form asp-action="Edit_Training" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-6">
+            @if (Model.Type.ToLower() == "jpg" && Model.Files.Count > 0)
+            {
+                <a asp-action="Index"><button type="button" class="btn btn-outline-info waves-effect font-weight-bold" style="margin-top:7em;">Back to List</button></a>
+            }
+            else
+            {
+                <a asp-action="Index"><button type="button" class="btn btn-outline-info waves-effect font-weight-bold">Back to List</button></a>
+            }
+        </div>
+        @if (Model.Type.ToLower() == "jpg" && Model.Files.Count > 0)
+        {
+            <div class="col-6">
+                <label asp-for="FormFile" class="control-label">New files <span class="info">(optional)</span></label>
+                <div class="custom-file">
+                    <input asp-for="FormFile" class="custom-file-input" id="customFileLang" lang="en-us" multiple />
+                    <label class="custom-file-label" id="FileLabel" for="customFileLang">Choose files</label>
+                </div>
+                <div class="row">
+                    <div class="col align-self-end">
+                        <button class="btn btn-dark btn-sm font-weight-bold" type="button" style="float:right;" id="New_File_Name_Button" value="File between">File between</button>
+                        <input asp-for="New_File_Name" id="New_File_Name" class="form-control" type="text" placeholder="Example: 2,3,4" pattern="[0-9,]+" title="use only numbers and commas" maxlength="100" />
+                        <span asp-validation-for="New_File_Name" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="row" id="Main_Row">
+        <div class="col-12 col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="@Model.Id" class="form-control" hidden />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Name" class="control-label">Name <span class="info">(100 Characters possible, please use only letters and numbers)</span></label>
+                <input asp-for="@Model.Name" class="form-control" required maxlength="100" pattern="[A-Za-z0-9\s']+" title="use only letters and numbers" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <hr id="hr" />
+            <div class="form-group">
+                <label asp-for="@Model.Type" class="control-label">Type <span class="info"> (required)</span></label>
+                <select asp-for="@Model.Type" class="form-control" required disabled id="Select_Type">
+                    <option value=""></option>
+                    @foreach (var item in Model.Format_Types)
+                    {
+                        len = len + item.Name.Length / 4;
+
+                        @if (@Model.Type_Name == item.Name)
+                        {
+                            <option value="@item.Format" selected="selected">
+                                @item.Name &nbsp;&nbsp; @for (int i = 0; i < len; i++)
+                                {@space;
+                            }->&nbsp;(Required format is: &nbsp; "@item.Format" )
+                        </option>
+                    }
+                    else
+                    {
+                        <option value="@item.Format">
+                            @item.Name &nbsp;&nbsp; @for (int i = 0; i < len; i++)
+                            {@space;
+                        }->&nbsp;(Required format is: &nbsp; "@item.Format" )
+                    </option>
+                }
+
+                    }
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            @if (@Model.Files.Count == 0)
+            {
+                <hr id="hr" />
+                <label asp-for="FormFile" class="control-label">Files <span class="info">(required)</span></label>
+                <div class="custom-file">
+                    <label asp-for="FormFile" class="control-label">Files</label>
+                    <input asp-for="FormFile" class="custom-file-input" id="customFileLang" lang="en-us" multiple required value=""/>
+                    <label class="custom-file-label" id="FileLabel" for="customFileLang">Choose files</label>
+                </div>
+            }
+            <hr id="hr" />       
+            <button type="submit" value="Update" class="btn btn-primary btn-block font-weight-bold">Update</button>
+            <hr id="hr" />
+            <ul class="list-group" id="legendList_Presentation">
+                <li class="list-group-item" id="legendHeader_Presentation">Legend, Manual, Instructions:</li>
+                <li class="list-group-item">You can change name of training, delete and upload new files.</li>
+                <li class="list-group-item">You can change type, only when you delete all files and upload new.</li>
+                @if (@Model.Type.ToLower() == "jpg")
+                {
+                    <li class="list-group-item">New files are added as last, at the end by default.</li>
+                    <li class="list-group-item">
+                        If you want to put new files between old ones, click on button <i class="text-danger">File between</i>, enter numbers, that will fit.
+                        <i class="text-danger">Example:</i> between <i class="text-danger">name2</i> and <i class="text-danger">name4</i> you can put <i class="text-danger">name3</i> so enter
+                        <i class="text-danger">3 </i>If you have more files, enter the numbers after the comma, like this:<i class="text-danger"> 2,3,4,5</i>
+                    </li>
+                }
+                <li class="list-group-item">Update presentation.</li>
+            </ul>
+        </div>
+        <div class="col-12 col-md-8">
+            <h3 style="text-align:center;">Files preview: </h3>
+
+            @switch (@Model.Type.ToLower())
+            {
+                case "jpg":
+                    <div class="row overflow-auto" id="photo_Preview">
+                        @foreach (var item in Model.Files)
+                        {
+                            string photo_Id = "photo" + id.ToString();
+                            <div class="col-6">
+                                <h6 style="text-align:center;"><i>@item.Name</i></h6>
+                                <img class="thumbnail" src="@item.src" id="@photo_Id" onclick="photo_Modal('@photo_Id','@item.Name');" title="@item.Name" />
+                                <button type="button" id="Delete_Buttons" class="btn btn-danger btn-sm btn-block font-weight-bold" data-toggle="modal" onclick="DeletFilebyName('@item.Name','@Model.Type_Name','@Model.Id');">Delete file</button>
+                                <hr id="hr" style="margin-bottom:unset;" />
+                            </div>
+
+                            id += 1;
+                        }
+                    </div>
+                    <hr id="hr" />
+                    @if (Model.Files.Count > 0)
+                    {
+                        <button type="button" id="Delete_Buttons" class="btn btn-danger btn-block font-weight-bold" data-toggle="modal" onclick="DeletFilebyName('@Model.Name','@Model.Type_Name','@Model.Id','all')">Delete all files</button>
+                    }
+                    else
+                    {
+                        <h4 id="No_Files">No files...</h4>
+                    }
+
+                    break;
+                case "mp4":
+
+                    @if (Model.Files.Count > 0)
+                    {
+                        <div class="embed-responsive embed-responsive-16by9" allowfullscreen id="embedItem">
+                            <video class="embed-responsive-item" id="video1" src='@Html.DisplayFor(model => model.Files[0].src)' noloop allowfullscreen controls controlsList="nodownload"></video>
+                        </div>
+                        <hr id="hr" />
+                        <button type="button" id="Delete_Buttons" class="btn btn-danger btn-block font-weight-bold" data-toggle="modal" data-target="#myModal" onclick="DeletFilebyName('@Model.Files[0].Name', '@Model.Type_Name','@Model.Id');">Delete file</button>
+                    }
+                    else
+                    {
+                        <h4 id="No_Files">No files...</h4>
+                    }
+                    break;
+                case "pdf":
+
+                    @if (Model.Files.Count > 0)
+                    {
+                        <div class="embed-responsive embed-responsive-16by9" id="embedItem" style="min-height:60vh;">
+                            <embed class="embed-responsive-item" src='@Html.DisplayFor(model => model.Files[0].src)'></embed>
+                        </div>
+                        <hr id="hr" />
+                        <button type="button" id="Delete_Buttons" class="btn btn-danger btn-block font-weight-bold" data-toggle="modal" data-target="#myModal" onclick="DeletFilebyName('@Model.Files[0].Name', '@Model.Type_Name','@Model.Id');">Delete file</button>
+                    }
+                    else
+                    {
+                        <h4 id="No_Files"> No files...</h4>
+                    }
+                    break;
+                default: <h4 id="No_Files">No files...</h4>
+                    break;
+            }
+
+        </div>
+    </div>
+</form>
+<!--Modal 4 delete: modalPush-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger modal-dialog-centered modal-lg">
+        <div class="modal-content text-center">
+            <div class="modal-header d-flex justify-content-center">
+                <h2 class="modal-title" id="DeleteError"></h2>
+            </div>
+            <div class="modal-body">
+                <i class="fas fa-trash fa-4x animated rotateIn mb-4"></i>
+                <dl class="row">
+                    <dt class="col-sm-6" id="ModelName">
+                    </dt>
+                    <dd class="col-sm-6">
+                        <p id="File_Name"></p>
+                    </dd>
+                    @*
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.URL)
+                        </dt>
+                        <dd class="col-sm-9">
+                            <p id="Url"></p>
+                        </dd>*@
+
+                    <dt class="col-sm-6" id="ModelType">
+                        @Html.DisplayNameFor(model => model.Type)
+                    </dt>
+                    <dd class="col-sm-6">
+                        <p id="Type_Name"></p>
+                    </dd>
+                </dl>
+                @*<div class="form-group">
+                        <label for="EmployeeId">ID</label>
+                        <p id="EmployeeID"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <p id="Name"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="Age">Type</label>
+                        <p id="Age"></p>
+                    </div>*@
+
+            </div>
+            <div class="modal-footer flex-center">
+                <a href="" id="asp"><button type="button" class="btn btn-danger font-weight-bold">Delete</button></a>
+                <button type="button" class="btn btn-outline-info waves-effect font-weight-bold" data-dismiss="modal" onclick="Clear()" id="NoButton">No</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Modal 4 photo: modalPush-->
+<div class="modal fade" id="myModal_Photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-info modal-dialog-centered modal-xl">
+        <div class="modal-content text-center">
+            <div class="modal-header d-flex justify-content-center">
+                <h2 class="modal-title" id="Photo_Name">Name</h2>
+            </div>
+            <div class="modal-body">
+                <img src="" id="Photo_On_Modal" style="width:82%;" />
+            </div>
+            <div class="modal-footer flex-center">
+                <a href="" id="asp_Photo"><button type="button" class="btn btn-danger font-weight-bold" id="btnDelete" value="id">Delete</button></a>
+                <button type="button" class="btn btn-outline-info waves-effect font-weight-bold" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal 4 Error: modalPush-->
+
+@if (ViewBag.Error == "Well done !!")
+{
+    m_class = "modal-dialog modal-notify modal-success modal-dialog-centered modal-lg";
+}
+else
+{
+    m_class = "modal-dialog modal-notify modal-danger modal-dialog-centered modal-lg";
+}
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="@m_class">
+        <div class="modal-content text-center">
+            <div class="modal-header d-flex justify-content-center">
+                <h2 class="modal-title">@ViewBag.Error</h2>
+            </div>
+            <div class="modal-body">
+                <h4 id="ErrorMsg">
+                    @ViewBag.ErrorMsg
+                </h4>
+            </div>
+            <div class="modal-footer flex-center">
+                <button type="button" class="btn btn-outline-info waves-effect font-weight-bold" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Quiz.Models.Parent_Menu>
+
+@{
+    string hoverStyle = "w3-blue";
+    string collapse = "";
+    string rotate = "";
+}
+<div id="accordion_2">
+    @foreach (var menu in Model)
+    {
+        string collapse_Id = "collapse_Id_" + menu.Id_Parent.ToString();
+        string icon_Id = "Arrow_Id_" + menu.Id_Parent.ToString();
+        string parent = "Parent_" + menu.Id_Parent.ToString();
+
+        <div id="@parent" class="@menu.Css_Class" data-toggle="collapse" data-target="#@collapse_Id" aria-expanded="true" aria-controls="@collapse_Id" @menu.HTML_Events="@Html.Raw( menu.JS_Function)">
+
+            <span class=""><i class="@menu.Icon_Css_Class"></i>  @menu.Name  </span>
+            @if (menu.Child_Menus.Any(ch => ch.Name.Contains(ViewData["Title"].ToString())))
+            {
+                rotate = "Rotate_Arrow";
+            }
+            else
+            {
+                rotate = "";
+            }
+            <i id="@icon_Id" class="fas fa-chevron-down float-lg-right Arrow_Icon @rotate"></i>
+        </div>
+        @*@Html.Raw(menu.Additional_HTML)*@
+        @if (menu.Child_Menus.Any(ch => ch.Name.Contains(ViewData["Title"].ToString())))
+            {
+                //hoverStyle = "w3-blue";
+                collapse = "show";
+            }
+            else
+            {
+                //hoverStyle = "";
+                collapse = "";
+            }
+        <div id="@collapse_Id" class="collapse @collapse Collapse" aria-labelledby="headingOne" data-parent="#accordion_2">
+            @foreach (var child in menu.Child_Menus)
+            {
+                if (child.Name == ViewData["Title"].ToString())
+                {
+                    hoverStyle = "w3-blue";
+                    //collapse = "show";
+                }
+                else
+                {
+                    hoverStyle = "";
+                    //collapse = "";
+                }
+                <a asp-area="" asp-controller="@child.Controller_Name" asp-action="@child.Action_Name" class="@child.Css_Class @hoverStyle "><span class="ml-4"><i class="@child.Icon_Css_Class"></i>  @child.Name </span></a>
+
+                @*@Html.Raw(child.Additional_HTML);*@
+            }
+
+            @*@Html.Raw(menu.Additional_HTML2)*@
+
+        </div>
+    }
+    @*<a asp-area="" asp-controller="Home" asp-action="Logout" asp-route-id="@Context.Session.GetInt32("User_Id")" class="w3-bar-item w3-button w3-padding"><i class="fas fa-sign-out-alt"></i>  Logout</a>*@
+
+</div>

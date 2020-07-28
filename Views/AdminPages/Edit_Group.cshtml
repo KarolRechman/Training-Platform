@@ -1,0 +1,85 @@
+﻿@model Quiz.Models.Training_Group
+
+@{
+    ViewData["Title"] = "Edit Group";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Edit Group: <strong class="deep-orange-text"><i> @Model.Name</i></strong></h1>
+<hr id="hr" />
+<div class="d-flex">
+    <div class="p-2 ">
+        <a asp-action="Groups_List"><button type="button" class="btn btn-outline-info waves-effect btn-lg font-weight-bold">Back to List</button></a>
+    </div>
+    <div class="ml-auto col-9">
+        <ul class="list-group inline_List" id="legendList_Presentation">
+            <li class="list-group-item"><strong style="font-weight:bolder"><b>Instructions:</b></strong> You can change the name of your group, to do so use <i class="text-info">UPDATE</i> button. You can delete or assign new employees in <i class="text-info">REAL TIME</i>.</li>        </ul>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-notify modal-danger modal-lg" role="document" id="M_Class">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-center">
+                <h1 class="modal-title w-100" id="myModalLabel">@ViewBag.Msg</h1>
+            </div>
+            <div class="modal-body">
+                <h2 id="ErrorMsg">@ViewBag.Errors</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-info" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Main_Row">
+    <form asp-action="Edit_Group">
+        <div class="row p-1">
+            <div class="col-6 col-md-6">
+                <div class="row">
+                    <div class="col-9">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input asp-for="Id_Group" value="@Model.Id_Group" hidden />
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label">Name <span class="info">(100 Characters possible, please use only letters and numbers)</span></label>
+                            <input asp-for="Name" class="form-control" id="Name" required maxlength="100" pattern="[A-Za-z0-9\s']+" title="use only letters and numbers" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-3 align-self-end">
+                        <input type="submit" value="Update" class="btn btn-primary font-weight-bold" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-6 pr-4 align-self-end">
+                <button type="button" id="Assign_Employees" class="btn btn-deep-purple float-sm-right font-weight-bold">add new employees</button>
+            </div>
+        </div>
+        <div class="col-12 col-md-12">
+            <hr id="hr" />
+            <h3 style="text-align:center;">Assigned Employees:</h3>
+            <div id="Assigned_Employees_Partial">
+                @await Html.PartialAsync("Assigned_Employees_Partial")
+            </div>
+        </div>
+    </form>
+    <div class="modal fade bd-example-modal-xl" id="Assign_Table" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-notify modal-primary modal-xl">
+            <div class="modal-content text-center">
+                <!--Header-->
+                <div class="modal-header d-flex justify-content-center">
+                    <h2 class="modal-title" style="color:white;">Available Employees</h2>
+                </div>
+                @await Html.PartialAsync("_Partial")
+                <div class="modal-footer flex-center">
+                    <a id="Add_New_Employees"><button type="submit" class="btn btn-success" value="Add ">Add</button></a>
+                    <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal" id="dismiss">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

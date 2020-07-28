@@ -1,0 +1,124 @@
+﻿@model Quiz.Models.Questions
+
+@{
+    ViewData["Title"] = "Create_Question";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    string m_class = "";
+
+}
+
+<h1>Create question for presentation: <strong class="deep-orange-text"><i>@ViewBag.Presentation_Name</i></strong></h1>
+<hr id="hr" />
+<div class="d-flex bottom" style="width:97%;">
+    <div class="p-2">
+        <a asp-action="Questions_List" asp-route-id=@ViewBag.Id><button type="button" class="btn btn-outline-info waves-effect btn-lg font-weight-bold">Back to List</button></a>
+    </div>
+    <div class="ml-auto p-2" id="ToMove">
+        <button type="button" class="btn btn-success font-weight-bold" id="AddAnswer2">add answer &nbsp;<i class="fas fa-plus"></i></button>
+    </div>
+</div>
+
+@if (ViewBag.Msg == "Well done !!")
+{
+    m_class = "modal-dialog modal-notify modal-success modal-dialog-centered modal-lg";
+}
+else
+{
+    m_class = "modal-dialog modal-notify modal-danger modal-dialog-centered modal-lg";
+}
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="@m_class" role="document" id="M_Class">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-center">
+                <h1 class="modal-title w-100" id="myModalLabel">@ViewBag.Msg</h1>
+            </div>
+            <div class="modal-body">
+                <h2 id="ErrorMsg">@ViewBag.ErrorsMsgs</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info font-weight-bold" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Form -->
+<form asp-action="Create_Question" asp-route-id="@ViewBag.Id" id="Create_Question">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row" id="Main_Row">
+        <div class="col-12 col-md-6">
+            <ul class="list-group" id="legendList_Presentation">
+                <li class="list-group-item" id="legendHeader_Presentation">Legend, Manual, Instructions:</li>
+                <li class="list-group-item">Write a question,</li>
+                <li class="list-group-item">Write at least two answers, four are optional,</li>
+                <li class="list-group-item">Choose one or more correct answers, you can choose all,</li>
+                <li class="list-group-item">Create new question.</li>
+            </ul>
+            <hr id="hr" />
+            <div class="form-group" style="margin-bottom:3em;">
+                <label asp-for="Question" class="control-label"></label>
+                <textarea asp-for="Question" class="form-control" id="exampleFormControlTextarea1" rows="6" required></textarea>
+                <span asp-validation-for="Question" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="d-flex bottom">
+                <div class="ml-auto p-2" id="ToShow">
+                    <button type="button" class="btn btn-outline-success waves-effect font-weight-bold" id="AddAnswer2">add answer &nbsp;<i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            @for (int i = 0; i <= 1; i++)
+            {
+                string labelTxt = "Answer " + (i + 1).ToString();
+
+                <div class="form-group">
+                    <label asp-for="Answers[i].Answer" class="control-label">@labelTxt <i class="text-danger"> (Required)</i></label>
+                    <textarea asp-for="Answers[i].Answer" class="form-control" id="exampleFormControlTextarea1" rows="2" required></textarea>
+                    <span asp-validation-for="Answers[i].Answer" class="text-danger"></span>
+                    <label asp-for="Answers[i].Correct_Answer" class="containerCheck">
+                        Correct Answer ?
+                        <input asp-for="Answers[i].Correct_Answer" type="checkbox" />
+                        <span class="checkmark"></span>
+                    </label>
+                    <span asp-validation-for="Answers[i].Answer" class="text-danger"></span>
+                </div>
+
+                @if (i != 1)
+                {
+                    <hr id="hr" />
+                }
+            }
+            @for (int i = 2; i <= 3; i++)
+            {
+                string labelTxt = "Answer " + (i + 1).ToString(),
+                       hiddenId = "a" + (i + 1).ToString(),
+                       containerCheck = "containerCheck" + (i + 1).ToString(),
+                       TxTiD = "Answer_" + (i + 1).ToString(),
+                       correctId = "Correct_" + (i + 1).ToString();
+
+                <div class="form-group" hidden id="@hiddenId">
+
+                    <hr id="hr" />
+                    <label asp-for="Answers[i].Answer" class="control-label">@labelTxt <i class='text-info'> (Optional)</i></label>
+                    <textarea asp-for="Answers[i].Answer" class="form-control" id="@TxTiD" rows="2" onkeyup="userTyped('@correctId','@TxTiD','@containerCheck','@hiddenId');"></textarea>
+                    <span asp-validation-for="Answers[i].Answer" class="text-danger"></span>
+                    <label class="containerCheck" id="@containerCheck" hidden>
+                        Correct Answer ?
+                        <input asp-for="Answers[i].Correct_Answer" type="checkbox" id="@correctId" />
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            }
+            <p></p>
+        </div>
+        <div class="d-flex bottom" style="width:100%;">
+            <div class="form-group ml-auto p-2">
+                <input type="submit" value="Create" class="btn btn-primary btn-lg font-weight-bold" />
+            </div>
+        </div>
+    </div>
+
+</form>
+
+

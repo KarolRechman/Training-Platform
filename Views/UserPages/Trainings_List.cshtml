@@ -1,0 +1,206 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Quiz.Models.Training_Campaign>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *,ReflectionIT.Mvc.Paging
+
+@{
+    ViewData["Title"] = "Open trainings";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    string color = "";
+}
+
+<h1>Trainings List</h1>
+<hr id="hr" />
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title w-100" id="myModalLabel">@ViewBag.Error</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 id="ErrorMsg">@ViewBag.Msg</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary font-weight-bold" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="p-2 ">
+        <a asp-action="Users_Campaigns_List"><button type="button" class="btn btn-outline-info waves-effect btn-lg font-weight-bold">Back to List</button></a>
+    </div>*@
+<div class="d-flex bd-highlight mb-3 Nav_Filter">
+    <div aria-label="Paging" id="nav_Table">
+        @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+    </div>
+    <form method="get" class="form-inline ml-auto p-2 bd-highlight" id="filter">
+        <a asp-action="Trainings_List"><i class="fas fa-sync-alt" id="Refresh"></i></a>
+        <input name="filter" id="myInput" class="form-control" placeholder="filter for name"
+               value="@Model.RouteValue["Filter"]" />
+        <button type="submit" class="btn btn-info btn-sm font-weight-bold">
+            Search &nbsp;<i class="fa fa-search"></i>
+        </button>
+    </form>
+</div>
+
+<div id="Main_Row">
+    <table class="table table-hover table-sm" id="Presentations_Table" data-pagination="true">
+        <thead>
+            <tr>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th style="text-align:left">
+                    Campaign
+                </th>
+                <th hidden>
+
+                </th>
+                <th>
+                    Training
+                </th>
+                <th>
+                    Ends:
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    Latests points
+                </th>
+                @*<th>
+                        Percentage
+                    </th>*@
+                <th>
+                    Attempt date
+                </th>
+                @*<th>
+                        Start
+                    </th>*@
+
+                @*<th>
+                        Attemps av
+                    </th>*@
+
+                <th>
+                    State
+                </th>
+                <th>
+                    Attempts left
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int number = 1;
+            }
+            @foreach (var item in Model)
+            {
+                string TogglerId = "toggleTr" + number.ToString();
+                string Attempt_Date = "Attempt_Date" + number.ToString();
+                string Points = "Points" + number.ToString();
+                string AllResults = "AllResults" + number.ToString();
+
+                <tr>
+                    <td hidden>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td style="text-align:left">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    @foreach (var pres in item.Presentations)
+                    {
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => pres.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => pres.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.End_Date)
+                        </td>
+                        <td>
+                            @{
+                                var parms = new Dictionary<string, string>
+                                                                                                                                                                                                                                                                {
+                                {"Id_Campaign",item.Id.ToString() },
+                                {"Id_Presentation", pres.Id.ToString() }
+                            };
+                            }
+                            @if (pres.Attempts_Left > 0)
+                            {
+                                <a asp-area="" asp-controller="PresentationPages" asp-action="Training_Page" asp-all-route-data="parms"><button class="btn btn-primary btn-sm font-weight-bold">Watch</button></a>
+                            }
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => pres.User_Points)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => pres.Points_Percentage)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => pres.Attempt_Date)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Start_Date)
+                            </td>*@
+
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Attempts)
+                            </td>*@
+
+                        @*@if (item.Points_Percentage > 50.00)
+                            {
+                                color = "color:forestgreen;";
+                            }
+                            else
+                            {
+                                color = "color:red;";
+                            }
+                            <td style="@color;">
+                                @Html.DisplayFor(modelItem => item.Points_Percentage) %
+                            </td>*@
+                        @if (pres.Author_Name == "PASS")
+                        {
+                            color = "color:forestgreen;";
+                        }
+                        else
+                        {
+                            color = "color:red;";
+                        }
+                        <td style="@color" class="font-weight-bold">
+                            @Html.DisplayFor(modelItem => pres.Author_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => pres.Attempts_Left)
+                        </td>
+                        <td>
+                            @if ((item.Attempts - pres.Attempts_Left) > 1)
+                            {
+                                <button type="button" class="btn btn-indigo btn-sm font-weight-bold" onclick="GetAllResults(@number,@item.Id,@pres.Id)">all results</button>
+                            }
+                        </td>
+                    }
+                </tr>
+                <tr id="@TogglerId" class="Toggler">
+                    <td id="@AllResults" colspan="12" class="text-left"></td>
+                </tr>
+
+                number += 1;
+            }
+        </tbody>
+    </table>
+    <nav aria-label="Paging" class="Nav_Filter_Bottom">
+        <vc:pager paging-list="@Model"></vc:pager>
+    </nav>
+</div>
+
+
+
