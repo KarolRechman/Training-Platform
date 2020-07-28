@@ -1,0 +1,550 @@
+﻿html, body, h1, h2, h3, h4, h5 {
+    font-family: "Raleway", sans-serif !important;
+}
+
+html {
+    width: 100%;
+}
+
+html,
+body,
+.view {
+}
+
+
+body {
+}
+/*Styles*/
+#container_fluid1 {
+    padding-left: 2% !important;
+    padding-top: 1% !important;
+    background: -moz-linear-gradient(45deg, rgba(255,255,255,0.7), rgba(160,160,160,0.7) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(255,255,255, 0.7), rgba(160,160,160,0.7) 100%);
+    background: -webkit-gradient(linear, 45deg, from(rgba(255,255,255, 0.7)), to(160,160,160,0.7));
+    background: -o-linear-gradient(45deg, rgba(255,255,255, 0.7), rgba(160,160,160,0.7) 100%);
+    background: linear-gradient(to 45deg, rgba(255,255,255, 0.7), rgba(160,160,160,0.7) 100%);
+}
+
+#Main_Row {
+    min-height: 74vh;
+}
+
+#Menu_Header {
+    text-align: center;
+    /*font-family: papyrus;*/
+}
+
+#mySidebar {
+    background: -moz-linear-gradient(-45deg, rgba(220,220,220,0.7), rgba(255,255,255, 0.7) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(220,220,220,0.7), rgba(255,255,255, 0.7) 100%);
+    background: -webkit-gradient(linear, -45deg, from(rgba(220,220,220,0.7)), to(rgba(255,255,255, 0.7)));
+    background: -o-linear-gradient(-45deg, rgba(220,220,220,0.7), rgba(255,255,255, 0.7) 100%);
+    background: linear-gradient(to -45deg, rgba(220,220,220,0.7), rgba(255,255,255, 0.7) 100%);
+}
+
+#myModal dl dt {
+    text-align: right !important;
+}
+
+#myModal dl dd {
+    text-align: left !important;
+}
+
+#requirements_Modal dl dt {
+    text-align: right !important;
+}
+
+#requirements_Modal dl dd {
+    text-align: left !important;
+}
+
+#legendList_Presentation {
+    margin-bottom: 2em !important;
+    font-size: 1.1em;
+}
+
+#legendHeader_Presentation {
+    text-align: center !important;
+    font-size: 1.2em !important;
+    font-weight: bold;
+    margin-bottom: 0.15em !important;
+}
+
+#hr {
+    height: 1px !important;
+    color: #123455 !important;
+    background-color: #123455 !important;
+    border: none !important;
+}
+
+#myModalLabel {
+    text-align: center;
+}
+
+#ErrorMsg {
+    text-align: center;
+}
+
+.control-label {
+    font-size: 1.1em;
+}
+
+.info {
+    color: red;
+    font-style: oblique;
+}
+
+.Toggler {
+    display: none;
+    background-color: lightgrey;
+    border-color: black !important;
+    border-bottom: 2px solid !important;
+}
+
+th {
+    border-bottom: 2px solid red !important;
+}
+
+/*Questions*/
+.Question {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding: 1%;
+    color: black;
+    background: -moz-linear-gradient(45deg, rgba(255,255,255,0.7), rgba(160,160,160,0.7) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(255,255,255, 0.7), rgba(160,160,160,0.7) 100%);
+    background: -webkit-gradient(linear, 45deg, from(rgba(255,255,255, 0.7)), to(160,160,160,0.7));
+    background: -o-linear-gradient(45deg, rgba(255,255,255, 0.7), rgba(160,160,160,0.7) 100%);
+    background: linear-gradient(to 45deg, rgba(255,255,255, 0.7), rgba(160,160,160,0.7) 100%);
+}
+
+    .Question:hover {
+        box-shadow: 0 7px 14px 0 rgba(0,0,0,0.2);
+        color: rgba(0,0,0,0.65);
+    }
+
+.QuestionText {
+    font-size: 1.2em;
+    font-style: italic;
+    cursor: pointer;
+}
+
+.Collapse {
+    /*background: -o-linear-gradient(45deg,rgba(180,180,180,0.7), rgba(255,255,255, 0.7) 100%);*/
+    /*background-color: rgba(180,180,180,0.7);*/
+    background: -moz-linear-gradient(45deg,rgba(180,180,180,0.7), rgba(255,255,255, 0.7) 100%);
+    background: -webkit-linear-gradient(45deg,rgba(180,180,180,0.7), rgba(255,255,255, 0.7) 100%);
+    background: -webkit-gradient(linear, 45deg,rgba(180,180,180,0.7), rgba(255,255,255, 0.7));
+    background: -o-linear-gradient(45deg,rgba(180,180,180,0.7), rgba(255,255,255, 0.7) 100%);
+    background: linear-gradient(to 45deg,rgba(180,180,180,0.7), rgba(255,255,255, 0.7) 100%);
+}
+
+
+
+.Plus_Icon {
+    float: left;
+    font-size: 1em;
+    margin: auto;
+    margin-top: 0.40vw !important;
+    margin-right: 1.5vw !important;
+    transition: transform 0.4s;
+    transform: rotate(0deg);
+    cursor: pointer;
+}
+
+.Arrow_Icon {
+    float: right;
+    font-size: 1.5em;
+    /*
+    margin: auto;
+    margin-top: 0.40vw !important;
+    margin-right: 1.5vw !important;*/
+    transition: transform 0.4s;
+    transform: rotate(0deg);
+    cursor: pointer;
+}
+
+
+/*#visibleRow{
+    cursor:pointer;
+}*/
+.Rotate {
+    transition: transform 0.4s;
+    transform: rotate(180deg);
+    color: #33b5e5;
+}
+
+.Rotate_Arrow {
+    transition: transform 0.4s;
+    transform: rotate(180deg);
+    color: #ff4444;
+}
+
+#Correct_A {
+    font-size: 1.1em;
+    font-weight: bolder;
+}
+
+.containerCheck {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    margin-left: 1%;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 255px;
+}
+
+    /* Hide the browser's default checkbox */
+    .containerCheck input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #f44336;
+    border-radius: 2px 2px 2px 2px;
+}
+
+/* On mouse-over, add a grey background color */
+.containerCheck:hover input ~ .checkmark {
+    background-color: #ffff00;
+}
+
+/* When the checkbox is checked, add a blue background */
+.containerCheck input:checked ~ .checkmark {
+    background-color: #00c61a;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.containerCheck input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.containerCheck .checkmark:after {
+    left: 3px;
+    top: -8px;
+    width: 18px;
+    height: 23px;
+    border: solid black;
+    border-width: 0 3px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.label-blue {
+    background-color: #00C851;
+}
+
+.material-toggle {
+    display: block;
+    min-height: 40px;
+    /*max-width:100px;*/
+}
+
+    .material-toggle input[type="checkbox"] {
+        display: none;
+    }
+
+    .material-toggle label {
+        cursor: pointer;
+        height: 0px;
+        position: relative;
+        width: 40px;
+    }
+
+    .material-toggle > label::before {
+        background: rgb(0, 0, 0);
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        content: '';
+        height: 16px;
+        margin-top: -8px;
+        position: absolute;
+        opacity: 0.3;
+        transition: all 0.4s ease-in-out;
+        width: 40px;
+    }
+
+    .material-toggle > label::after {
+        background: rgb(255, 255, 255);
+        border-radius: 16px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+        content: '';
+        height: 24px;
+        left: -4px;
+        margin-top: -8px;
+        position: absolute;
+        top: -4px;
+        transition: all 0.3s ease-in-out;
+        width: 24px;
+    }
+
+    .material-toggle > input[type="checkbox"]:checked + label::before {
+        background: inherit;
+        opacity: 0.5;
+    }
+
+    .material-toggle > input[type="checkbox"]:checked + label::after {
+        background: inherit;
+        left: 20px;
+    }
+
+#ToShow {
+    display: none;
+}
+
+#Edit_question {
+    float: right;
+    margin-left: 1em;
+    font-style: normal;
+}
+
+#Delete_question {
+    float: right;
+    margin-left: 0.5em;
+    margin-right: 1em;
+    font-style: normal;
+}
+
+#IndexButton {
+    font-size: 2em;
+}
+
+#Presentation_Table {
+    border-bottom-color: black;
+}
+
+tr, td {
+    border-bottom: 0.1em solid rgba(96, 125, 139, 0.7) !important;
+}
+
+.Nav_Filter {
+    width: 101.5%;
+    border-radius: unset;
+    background-color: rgba(200,200,200,0.3);
+    padding-right: 2em;
+}
+
+.Nav_Filter_Bottom {
+    width: 101.5%;
+    border-radius: unset;
+    background-color: rgba(200,200,200,0.5);
+    padding-top: 0.5em;
+    padding-left: 1em;
+}
+
+#nav_Table {
+    padding: 1em;
+}
+
+#Refresh {
+    font-size: 24px;
+    margin: 1em;
+    float: right;
+}
+
+.thumbnail {
+    margin-bottom: 0.5em;
+    padding: 5px;
+    width: 100%;
+    max-height: 50vh !important;
+    cursor: pointer;
+}
+
+.col {
+    width: 40% !important;
+    margin: 1% !important;
+}
+
+#Delete_Buttons {
+    color: black !important;
+    font-weight: 900 !important;
+}
+
+#New_File_Name {
+    display: none;
+    width: 185px !important;
+    float: right !important;
+}
+
+#No_Files {
+    text-align: center;
+}
+
+#Presentations_Table td {
+    font-size: 1em;
+    text-align: center;
+    max-width: 100%;
+}
+
+#Presentations_Table th, tr {
+    font-size: 1.1em;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.Table_Name_Col {
+    text-align: left !important;
+    width: 20% !important;
+}
+
+#EditButtons {
+    font-size: 1em !important;
+    padding-right: 0.9vw !important;
+    padding-left: 0.9vw !important;
+    color: black !important;
+}
+
+#photo_Preview {
+    background-color: rgba(192,192,192,0.5);
+    max-height: 82vh;
+}
+/*4 edit page*/
+#dates {
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+#Delete_Employee {
+    color: black;
+    font-size: 0.7em;
+}
+/*4 create_tr page*/
+#Check_Assigned {
+    font-size: 0.5em;
+    width: 20px;
+    text-align: center;
+    margin: auto;
+    max-height: 20px;
+}
+
+.myTable td {
+    font-size: 1.1em !important;
+}
+
+.myTable tr:hover {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.td_Assigned {
+    text-align: center !important;
+}
+
+.th-sm {
+    font-size: 1.1em !important;
+    font-weight: bold !important;
+}
+/*4 Create_Group*/
+#Name {
+    max-width: 25vw;
+}
+/*4 Creat Session*/
+.btn-link {
+    background-color: white !important;
+    border-radius: 5px !important;
+    text-decoration: none !important;
+    border: 1px solid lightgrey;
+}
+
+#Submit_Session {
+    /*display: none;*/
+}
+
+#requirements_Camp {
+    display: none;
+}
+
+.carousel-control-prev {
+    opacity: 1 !important;
+}
+
+.carousel-control-next {
+    opacity: 1 !important;
+}
+/*4 camp list*/
+.date_Column {
+    min-width: 110px !important;
+    cursor: pointer !important;
+}
+
+.Deco_Link:hover {
+    font-weight: 900;
+    color: #ffff00;
+}
+
+#Edit_Button_Right {
+    text-align: right !important;
+}
+/*4 edit_Camp*/
+#last_Column {
+    max-width: 250px !important;
+}
+/*4 trainings_list*/
+/*#border_Right {
+    border-right: 0.1em solid rgba(96, 125, 139, 0.7) !important;
+    float: right;
+    height: 80%;
+    top: 20px;
+}*/
+.border_Bottom {
+    width: 23vw;
+    border-bottom: 0.1em solid rgba(96, 125, 139, 0.7) !important;
+}
+.dataTables_filter, .dataTables_length {
+    padding: 2%;
+}
+@media (max-width: 600px) {
+}
+
+@media (max-width: 767px) {
+    #ToMove {
+        display: none;
+    }
+
+    #ToShow {
+        display: inline;
+    }
+
+    #EditButtons {
+        font-size: 0.8em !important;
+        padding-right: 0.8vw !important;
+        padding-left: 0.8vw !important;
+    }
+}
+
+@media (max-width: 768px) {
+}
+
+
+@media (max-width: 992px) {
+}
+
+
+@media (max-width: 1200px) {
+}

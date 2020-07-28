@@ -1,0 +1,85 @@
+﻿/*my*/
+
+#Stock_chartdiv {
+    width: 100% !important;
+    height: 500px !important;
+    max-width: 100% !important;
+    background-color: rgba(90,90,90,0.99) !important;
+    color: #fff !important;
+}
+
+#chartdiv {
+    width: 100%;
+    height: 65vh;
+}
+
+#PieChartContainer {
+    display: none;
+}
+
+#Pie_chartdiv {
+    min-height: 25vh;
+}
+#Export{
+    position:relative;
+    right:-100%;
+}
+#Export>div{
+    max-height:10px;
+    max-width:10px;
+}
+#Export > .amcharts-amexport-menu > .amcharts-amexport-item {
+    top: -3px !important;
+    left: -12px;
+}
+
+#chartdiv_Hor {
+    width: 100%;
+    height: 500px;
+}
+
+.BGC {
+    background-color: rgba(100,100,100,0.99);
+    color: #fff;
+    margin-bottom: 2%;
+    padding: 1%;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+.controls_Charts {
+    width: 100%;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: rgba(170,170,170,0.99);
+}
+
+#data_Range {
+    float: left;
+    margin-left: 15px;
+}
+
+#chart_Buttons {
+    float: right;
+    margin-right: 15px;
+}
+
+#Trainings_Select {
+    display: none;
+}
+
+#Results_Select {
+    display: none;
+}
+/*.card-header {
+    background-color: rgb(200,200,200) !important;    
+@media (min-width:1200px) {
+    /*.navbar, .page-footer, main {
+        padding-left: 270px
+    }*/
+}
+
+@media (max-width:1199.98px) {
+}

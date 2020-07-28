@@ -1,0 +1,467 @@
+﻿
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+h1 {
+    text-align: center;
+    margin: 1%;
+}
+
+#embedItem {
+    margin-bottom: 2%;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #616161 !important;
+    color: white !important;
+
+    /*background: -moz-linear-gradient(45deg, rgba(255,255,255,0.7), rgba(140,140,140,0.7) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(255,255,255, 0.7), rgba(140,140,140,0.7) 100%);
+    background: -webkit-gradient(linear, 45deg, from(rgba(255,255,255, 0.7)), to(rgba(140,140,140,0.7)));
+    background: -o-linear-gradient(45deg, rgba(255,255,255, 0.7), rgba(140,140,140,0.7) 100%);
+    background: linear-gradient(to 45deg, rgba(255,255,255, 0.7), rgba(140,140,140,0.7) 100%);*/
+}
+
+#nav1 {
+    height: 80px !important;
+    font-size: 1.3em !important;
+    background-color: rgba(255, 106, 0,0.8) !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    height: 60px;
+    line-height: 60px;
+}
+
+.container-fluid {
+    width: 86% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#carouselExampleIndicators {
+    margin-top: 1% !important;
+}
+
+.carousel-indicators {
+    flex-wrap: wrap !important;
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    text-align: center;
+    display: inline;
+}
+
+#span_indicator {
+    font-size: 1.1em;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    cursor: pointer !important;
+    position: absolute !important;
+    width: 100px !important;
+    height: 99.9% !important;
+    padding: 16px !important;
+    color: black !important;
+    font-weight: bold !important;
+    font-size: 56px !important;
+    transition: 0.6s ease !important;
+    border-radius: 0 3px 3px 0 !important;
+    user-select: none !important;
+    top: 0.1% !important;
+}
+
+.carousel-control-prev {
+    left: -5.5vw !important;
+}
+.carousel-control-next {
+    right: -5.5vw !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    cursor: pointer !important;
+    position: absolute !important;
+    width: 5vw !important;
+    height: 100% !important;
+    background-color: black !important;
+    font-weight: bold !important;
+    font-size: 56px !important;
+    transition: 0.6s ease !important;
+    border-radius: 0 3px 3px 0 !important;
+    user-select: none !important;
+}
+
+.carousel-control-next-icon {
+    opacity: 0.6 !important;
+    /*right: -100px !important;*/
+    border-radius: 0 30px 30px 0 !important;
+}
+
+.carousel-control-prev-icon {
+    opacity: 0.6 !important;
+    /*left: -100px !important;*/
+    
+    border-radius: 30px 0 0 30px !important;
+}
+
+    .carousel-control-prev-icon:hover, .carousel-control-next-icon:hover {
+        opacity: 1 !important;
+        background-color: rgba(0,0,0,0.9) !important;
+    }
+
+.carousel-inner {
+    margin-bottom: 50px !important;
+    max-height: 90vh !important;
+}
+
+.display-4 {
+    margin-bottom: 3% !important;
+}
+
+#ToQuiz {
+    float: left !important;
+}
+
+#legend {
+    padding: unset !important;
+}
+
+#legendList {
+    width: 100% !important;
+    margin: unset !important;
+}
+
+#legendHeader {
+    font-size: 20px !important;
+    text-align: center !important;
+}
+
+#alert {
+    padding: 20px !important;
+    background-color: #f44336 !important;
+    color: white !important;
+    opacity: 1 !important;
+    transition: opacity 0.6s !important;
+    margin-bottom: 15px !important;
+    width: 100% !important;
+    height: 15% !important;
+}
+
+.closebtn {
+    margin-left: 15px !important;
+    color: white !important;
+    font-weight: bold !important;
+    float: right !important;
+    font-size: 22px !important;
+    line-height: 20px !important;
+    cursor: pointer !important;
+    transition: 0.3s !important;
+}
+
+    .closebtn:hover {
+        color: black !important;
+    }
+
+.answers {
+    background-color: azure !important;
+    padding: 1% !important;
+    margin-bottom: 3% !important;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2) !important;
+    transition: 0.1s !important;
+}
+
+    .answers:hover {
+        box-shadow: 0 16px 18px 10px rgba(0,0,0,0.2) !important;
+    }
+
+.containerCheck {
+    display: block !important;
+    position: relative !important;
+    margin-bottom: 1% !important;
+    margin-top: 1% !important;
+    margin-left: 1% !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    width: 40px !important;
+    float: right;
+}
+
+    /* Hide the browser's default checkbox */
+    .containerCheck input {
+        position: relative !important;
+        opacity: 0 !important;
+        cursor: pointer !important;
+        height: 0 !important;
+        width: 0 !important;
+    }
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute !important;
+    top: -1vw !important;
+    height: 30px !important;
+    width: 30px !important;
+    background-color: #f44336;
+    border-radius: 3px 3px 3px 3px;
+}
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+/* Show the checkmark when checked */
+.containerCheck input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.containerCheck .checkmark:after {
+    left: 3px;
+    top: -8px;
+    width: 25px;
+    height: 30px;
+    border: solid black;
+    border-width: 0 5px 4px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    /*border-radius: 5px 5px 5px 5px;*/
+}
+
+#IndexButton {
+    font-size: 1.2em !important;
+}
+
+/* Style the form */
+#regForm {
+    background-color: #ffffff !important;
+    margin: 10px auto !important;
+    padding: 40px !important;
+    width: 100% !important;
+    min-width: 300px !important;
+    min-height: 70vh;
+}
+
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    background: -moz-linear-gradient(315deg, rgba(140,140,140,0.7), rgba(255,255,255,0.7) 100%);
+    background: -webkit-linear-gradient(315deg, rgba(140,140,140,0.7), rgba(255,255,255,0.7)100%);
+    background: -webkit-gradient(linear, 315deg, from(rgba(140,140,140,0.7)), to(rgba(255,255,255,0.7)));
+    background: -o-linear-gradient(315deg, rgba(140,140,140,0.7), rgba(255,255,255,0.7)100%);
+    background: linear-gradient(to 315deg, rgba(140,140,140,0.7), rgba(255,255,255,0.7)100%);
+}
+
+/* Slides */
+.mySlides {
+    display: none;
+    padding: 2em;
+    text-align: center;
+    min-height: 60vh;
+}
+
+/* Position the "next button" to the right */
+.next {
+    position: absolute;
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+        color: white;
+    }
+
+/* The dot/bullet/indicator container */
+.dot-container {
+    text-align: center;
+    padding: 20px;
+    background: rgba(62, 69, 81, 0.3);
+}
+
+.dot {
+    margin-bottom: 1em !important;
+}
+
+    /* Add a background color to the active dot/circle */
+    .active, .dot:hover {
+        background-color: #717171;
+    }
+
+.User_Answer {
+    background: rgba(60, 60, 60, 0.3);
+    color: whitesmoke;
+    padding: 1em;
+    margin: 1em;
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+    .User_Answer:hover {
+        transform: scale(1.030);
+        transition-duration: 0.5s;
+        cursor: pointer;
+        box-shadow: 0 4px 10px 4px rgba(0,0,0,0.2) !important;
+    }
+
+        .User_Answer:hover input ~ .checkmark {
+            background-color: white;
+            cursor: pointer;
+        }
+
+    .User_Answer input:checked ~ .checkmark {
+        background-color: #00c61a;
+    }
+
+.check_Answer {
+    float: right;
+}
+
+.Question_TxT {
+    margin-bottom: 1em;
+}
+
+.Timer {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3vw;
+    float: left;
+    min-width: 19vw;
+}
+
+#Sub_Ans {
+    visibility: hidden;
+}
+
+#TxT_Answers_Info {
+    text-align:right !important;
+    float: right !important;
+    min-width: 29vw;
+    padding: 0.5em;
+    font-size: 2vw;
+}
+
+#ErrorMsg {
+    text-align: center;
+}
+
+#slider {
+    max-height: 100vh !important;
+}
+
+@media (max-width: 600px) {
+}
+
+@media (max-width: 768px) {
+
+
+    #createButton {
+        visibility: hidden;
+        display: none;
+    }
+
+    #createButton2 {
+        visibility: visible;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 50px !important;
+        height: 50% !important;
+        top: unset !important;
+    }
+
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        width: 50px !important;
+        height: 50% !important;
+        color: black !important;
+        font-weight: normal !important;
+        font-size: 16px !important;
+    }
+
+    .border-top footer text-muted {
+        margin-top: 100px !important;
+    }
+
+    .display-4 {
+        font-size: 20px !important;
+    }
+}
+
+#White_Button:hover {
+    background-color: #03a9f4 !important;
+    color: black !important;
+    transition: 0.4s ease !important;
+    border-color: #03a9f4 !important;
+}
+#Blue_Button:hover {
+    background-color: white !important;
+    color: black !important;
+    transition: 0.4s ease !important;
+    border-color: white !important;
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #616161 !important;
+        color: white !important;
+    }
+}
+
+@media (max-width: 768px) {
+}
+
+
+@media (max-width: 992px) {
+}
+
+
+@media (max-width: 1200px) {
+}

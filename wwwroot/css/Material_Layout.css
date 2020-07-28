@@ -1,0 +1,152 @@
+﻿/* Required for full background image */
+
+html,
+body,
+header,
+.view{
+    height: 100%;
+}
+
+.view {
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.btn .fa {
+    margin-left: 3px;
+}
+
+.top-nav-collapse {
+    background-color: rgb(255, 106, 0) !important;
+}
+
+.navbar:not(.top-nav-collapse) {
+    background: transparent !important;
+}
+
+@media (max-width: 991px) {
+    .navbar:not(.top-nav-collapse) {
+        background: rgb(255, 106, 0) !important;
+    }
+}
+
+.btn-white {
+    color: black !important;
+}
+
+h6 {
+    line-height: 1.7;
+}
+
+.rgba-gradient {
+    background: -moz-linear-gradient(45deg, rgba(255, 106, 0,0.7), rgba(248,247,206, 0.7) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(255, 106, 0, 0.7), rgba(248,247,206, 0.7) 100%);
+    background: -webkit-gradient(linear, 45deg, from(rgba(255, 106, 0, 0.7)), to(rgba(248,247,206, 0.7)));
+    background: -o-linear-gradient(45deg, rgba(255, 106, 0, 0.7), rgba(248,247,206, 0.7) 100%);
+    background: linear-gradient(to 45deg, rgba(255, 106, 0, 0.7), rgba(248,247,206, 0.7) 100%);
+}
+/*MY STYLES*/
+#myModalLabel {
+    text-align: center;
+}
+
+.modal-body {
+    text-align: center;
+}
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+    /* On mouse-over, add a deeper shadow */
+    .card:hover {
+        box-shadow: 0 28px 36px 20px rgba(0,0,0,0.5);
+    }
+
+/* Add some padding inside the card container */
+.containerCard {
+    padding: 2px 16px;
+    padding-top: 5%;
+    text-align: center;
+}
+
+#Login {
+    width: 65%;
+    margin: auto;
+    background: -moz-linear-gradient(45deg, rgba(248, 120, 20,0.95), rgba(248, 230, 180, 0.95) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(248, 120, 20, 0.95), rgba(248, 230, 180, 0.95) 100%);
+    background: -webkit-gradient(linear, 45deg, from(rgba(248, 120, 20, 0.95)), to(rgba(248, 230, 180, 0.95)));
+    background: -o-linear-gradient(45deg, rgba(248, 120, 20, 0.95), rgba(248, 230, 180, 0.95) 100%);
+    background: linear-gradient(to 45deg, rgba(248, 120, 20, 0.95), rgba(248, 230, 180, 0.95) 100%);
+}
+
+.LoginHeader {
+    width: 100%;
+}
+
+@media (max-width: 740px) {
+    html, body, header, .view {
+        height: 100%;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+    /*html,
+    body,
+    header,
+    .view {
+        height: 600px;
+    }*/
+}
+
+@media (max-width: 400px) {
+    /*body {
+        margin-top: 12%;
+    }*/
+
+    #Login {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    /*body {
+        margin-top: 10%;
+    }*/
+
+    #Login {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    /*body {
+        margin-top: 9%;
+    }*/
+
+    #Login {
+        width: 75%;
+    }
+    /*.view{
+        min-height:100vh;
+    }*/
+}
+
+
+@media (max-width: 992px) {
+    /*body {
+        margin-top: 8%;
+    }*/
+
+    #Login {
+        width: 75%;
+    }
+}
+
+
+@media (max-width: 1200px) {
+}
